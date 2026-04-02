@@ -355,19 +355,21 @@ ${linesPreview || "- Нет выбранных позиций"}`;
 
   return (
     <>
-    <div className="grid gap-6 pb-[140px] lg:grid-cols-[1.2fr_0.8fr] lg:pb-0 xl:gap-8">
-      <div className="space-y-6 rounded-[28px] border border-white/12 bg-white/[0.04] p-6 shadow-[0_24px_60px_rgba(0,0,0,0.25)] backdrop-blur-2xl">
+    <div className="grid gap-4 overflow-x-hidden pb-[140px] lg:grid-cols-[1.2fr_0.8fr] lg:gap-6 lg:pb-0 xl:gap-8">
+      <div className="min-w-0 space-y-4 rounded-[24px] border border-white/12 bg-white/[0.04] p-4 shadow-[0_24px_60px_rgba(0,0,0,0.25)] backdrop-blur-2xl sm:space-y-6 sm:rounded-[28px] sm:p-6">
         <div className="flex items-center justify-between">
           <div>
             <p className="[font-family:var(--font-display)] text-xs uppercase tracking-[0.24em] text-[#95a9bc]">Профессиональный калькулятор</p>
-            <h3 className="[font-family:var(--font-display)] mt-2 text-3xl uppercase tracking-[0.08em]">Цены из вашего прайса</h3>
+            <h3 className="[font-family:var(--font-display)] mt-2 max-w-[16rem] break-words text-2xl uppercase leading-tight tracking-[0.05em] sm:max-w-none sm:text-3xl sm:tracking-[0.08em]">
+              Цены из вашего прайса
+            </h3>
           </div>
           <div className="grid h-10 w-10 place-items-center rounded-2xl border border-[#6f8dad]/45 bg-[#6f8dad]/[0.12]">
             <Calculator className="h-5 w-5 text-[#9bb4cd]" />
           </div>
         </div>
 
-        <div className="rounded-2xl border border-white/12 bg-[#111111]/85 px-4 py-3">
+        <div className="rounded-2xl border border-white/12 bg-[#111111]/85 px-3 py-2.5 sm:px-4 sm:py-3">
           <div className="mb-2 flex items-center justify-between">
             <p className="text-[10px] uppercase tracking-[0.14em] text-[#9a9a9a]">Прогресс расчета</p>
             <p className="text-[10px] uppercase tracking-[0.14em] text-[#dce7f1]">
@@ -382,7 +384,7 @@ ${linesPreview || "- Нет выбранных позиций"}`;
           </div>
         </div>
 
-        <div className="space-y-4 rounded-3xl border border-white/12 bg-[#111111] p-4 md:border-0 md:bg-transparent md:p-0">
+        <div className="space-y-3 rounded-2xl border border-white/12 bg-[#111111] p-3 sm:space-y-4 sm:rounded-3xl sm:p-4 md:border-0 md:bg-transparent md:p-0">
           <p className="[font-family:var(--font-display)] text-xs uppercase tracking-[0.18em] text-[#bdbdbd]">Параметры сметы</p>
         <div className="grid gap-3 sm:grid-cols-2">
           <label className="space-y-1">
@@ -404,7 +406,7 @@ ${linesPreview || "- Нет выбранных позиций"}`;
         </div>
 
         {checks.t135 && !checks.t350 ? (
-          <div className="space-y-3 rounded-3xl border border-[#6f8dad]/35 bg-[#6f8dad]/[0.1] p-4">
+          <div className="space-y-3 rounded-2xl border border-[#6f8dad]/35 bg-[#6f8dad]/[0.1] p-3 sm:rounded-3xl sm:p-4">
             <p className="text-[11px] uppercase tracking-[0.14em] text-[#b7c9dc]">Вид тротуарной плитки 30x30</p>
             <div className="grid gap-2 sm:grid-cols-3">
               <button
@@ -445,7 +447,7 @@ ${linesPreview || "- Нет выбранных позиций"}`;
         ) : null}
 
         {checks.t350 && !checks.t135 ? (
-          <div className="space-y-3 rounded-3xl border border-[#6f8dad]/35 bg-[#6f8dad]/[0.1] p-4">
+          <div className="space-y-3 rounded-2xl border border-[#6f8dad]/35 bg-[#6f8dad]/[0.1] p-3 sm:rounded-3xl sm:p-4">
             <p className="text-[11px] uppercase tracking-[0.14em] text-[#b7c9dc]">Вид керамогранита 60x60</p>
             <div className="grid gap-2 sm:grid-cols-3">
               <button
@@ -485,7 +487,7 @@ ${linesPreview || "- Нет выбранных позиций"}`;
           </div>
         ) : null}
 
-        <div className="space-y-3 rounded-3xl border border-white/12 bg-[#111111] p-4">
+        <div className="space-y-3 rounded-2xl border border-white/12 bg-[#111111] p-3 sm:rounded-3xl sm:p-4">
           <p className="[font-family:var(--font-display)] text-xs uppercase tracking-[0.18em] text-[#bdbdbd]">Предпросмотр участка</p>
           {preview.l > 0 && preview.w > 0 ? (
             <div className="space-y-2">
@@ -512,7 +514,7 @@ ${linesPreview || "- Нет выбранных позиций"}`;
           )}
         </div>
 
-        <div className="space-y-3 rounded-3xl border border-white/12 bg-[#111111] p-4">
+        <div className="space-y-3 rounded-2xl border border-white/12 bg-[#111111] p-3 sm:rounded-3xl sm:p-4">
           <p className="[font-family:var(--font-display)] text-xs uppercase tracking-[0.18em] text-[#bdbdbd]">Монтажные работы</p>
           <div className="grid gap-2 sm:grid-cols-2">
             {INSTALL_TOGGLES.map((item) => (
@@ -533,7 +535,7 @@ ${linesPreview || "- Нет выбранных позиций"}`;
           </div>
         </div>
 
-        <div className="space-y-3 rounded-3xl border border-white/12 bg-[#111111] p-4">
+        <div className="space-y-3 rounded-2xl border border-white/12 bg-[#111111] p-3 sm:rounded-3xl sm:p-4">
           <p className="[font-family:var(--font-display)] text-xs uppercase tracking-[0.18em] text-[#bdbdbd]">Штучные позиции</p>
           <div className="grid gap-2 sm:grid-cols-2">
             {INSTALL_QTY.slice(0, 8).map((item) => (
@@ -591,7 +593,7 @@ ${linesPreview || "- Нет выбранных позиций"}`;
         </div>
       </div>
 
-      <aside className="hidden space-y-4 md:block lg:order-none lg:space-y-6">
+      <aside className="hidden min-w-0 space-y-4 md:block lg:order-none lg:space-y-6">
         <div className="rounded-[28px] border border-white/12 bg-white/[0.04] p-6 shadow-[0_20px_50px_rgba(0,0,0,0.22)] backdrop-blur-2xl">
           <p className="[font-family:var(--font-display)] text-xs uppercase tracking-[0.2em] text-[#9a9a9a]">Итог по смете</p>
           <p className="[font-family:var(--font-display)] mt-3 text-4xl uppercase tracking-[0.08em] text-white">{byn(calc.total)}</p>
@@ -800,7 +802,7 @@ ${linesPreview || "- Нет выбранных позиций"}`;
       </aside>
     </div>
     <div className="fixed inset-x-3 z-[65] md:hidden" style={{ bottom: "calc(86px + env(safe-area-inset-bottom))" }}>
-      <div className="rounded-2xl border border-white/12 bg-white/[0.04] p-3 shadow-[0_14px_36px_rgba(0,0,0,0.34)] backdrop-blur-xl">
+      <div className="rounded-2xl border border-white/12 bg-white/[0.04] p-2.5 shadow-[0_14px_36px_rgba(0,0,0,0.34)] backdrop-blur-xl">
         <div className="flex items-center justify-between gap-3">
           <div>
             <p className="text-[10px] uppercase tracking-[0.14em] text-[#8f8f8f]">Итог по смете</p>
@@ -809,11 +811,11 @@ ${linesPreview || "- Нет выбранных позиций"}`;
               Шаг {mobileProgress.done}/{mobileProgress.total}
             </p>
           </div>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1.5">
             <button
               type="button"
               onClick={() => setMobileDetailsOpen(true)}
-              className="rounded-xl border border-white/15 bg-[#101010] px-3 py-2 text-[11px] uppercase tracking-[0.12em] text-[#d6d6d6]"
+              className="rounded-xl border border-white/15 bg-[#101010] px-2.5 py-2 text-[10px] uppercase tracking-[0.1em] text-[#d6d6d6]"
             >
               Детали
             </button>
@@ -821,7 +823,7 @@ ${linesPreview || "- Нет выбранных позиций"}`;
               type="button"
               onClick={handleDownloadPng}
               disabled={exportBusy}
-              className="inline-flex items-center gap-1.5 rounded-xl border border-[#6f8dad]/55 bg-[#6f8dad]/[0.18] px-3 py-2 text-[11px] uppercase tracking-[0.12em] text-[#dce7f1] disabled:opacity-60"
+              className="inline-flex items-center gap-1 rounded-xl border border-[#6f8dad]/55 bg-[#6f8dad]/[0.18] px-2.5 py-2 text-[10px] uppercase tracking-[0.1em] text-[#dce7f1] disabled:opacity-60"
             >
               <Download className="h-3.5 w-3.5" />
               PNG
