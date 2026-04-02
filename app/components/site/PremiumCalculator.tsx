@@ -382,12 +382,8 @@ ${linesPreview || "- Нет выбранных позиций"}`;
           </div>
         </div>
 
-        <details className="group rounded-3xl border border-white/12 bg-[#111111] p-4 md:border-0 md:bg-transparent md:p-0">
-          <summary className="mb-3 flex cursor-pointer list-none items-center justify-between gap-3 md:hidden">
-            <p className="[font-family:var(--font-display)] text-xs uppercase tracking-[0.18em] text-[#bdbdbd]">Параметры сметы</p>
-            <ChevronDown className="h-4 w-4 text-[#9bb4cd] transition-transform group-open:rotate-180" />
-          </summary>
-          <div className="hidden space-y-4 group-open:block md:block">
+        <div className="space-y-4 rounded-3xl border border-white/12 bg-[#111111] p-4 md:border-0 md:bg-transparent md:p-0">
+          <p className="[font-family:var(--font-display)] text-xs uppercase tracking-[0.18em] text-[#bdbdbd]">Параметры сметы</p>
         <div className="grid gap-3 sm:grid-cols-2">
           <label className="space-y-1">
             <span className="text-xs uppercase tracking-[0.16em] text-[#9a9a9a]">Длина участка, м</span>
@@ -592,8 +588,7 @@ ${linesPreview || "- Нет выбранных позиций"}`;
             </label>
           </div>
         </div>
-          </div>
-        </details>
+        </div>
       </div>
 
       <aside className="order-first space-y-4 lg:order-none lg:space-y-6">
@@ -805,7 +800,7 @@ ${linesPreview || "- Нет выбранных позиций"}`;
       </aside>
     </div>
     <div className="fixed inset-x-3 z-[65] md:hidden" style={{ bottom: "calc(86px + env(safe-area-inset-bottom))" }}>
-      <div className="rounded-2xl border border-white/12 bg-[#0f1822]/95 p-3 shadow-[0_14px_36px_rgba(0,0,0,0.34)] backdrop-blur-xl">
+      <div className="rounded-2xl border border-white/12 bg-white/[0.04] p-3 shadow-[0_14px_36px_rgba(0,0,0,0.34)] backdrop-blur-xl">
         <div className="flex items-center justify-between gap-3">
           <div>
             <p className="text-[10px] uppercase tracking-[0.14em] text-[#8f8f8f]">Итог по смете</p>
@@ -818,7 +813,7 @@ ${linesPreview || "- Нет выбранных позиций"}`;
             <button
               type="button"
               onClick={() => setMobileDetailsOpen(true)}
-              className="rounded-xl border border-white/15 bg-[#111] px-3 py-2 text-[11px] uppercase tracking-[0.12em] text-[#d6d6d6]"
+              className="rounded-xl border border-white/15 bg-[#101010] px-3 py-2 text-[11px] uppercase tracking-[0.12em] text-[#d6d6d6]"
             >
               Детали
             </button>
@@ -838,7 +833,7 @@ ${linesPreview || "- Нет выбранных позиций"}`;
 
     {mobileDetailsOpen ? (
       <div className="fixed inset-0 z-[80] bg-black/60 p-4 md:hidden">
-        <div className="mx-auto flex h-full max-w-md flex-col rounded-3xl border border-white/12 bg-[#0f1822] p-4 shadow-[0_20px_60px_rgba(0,0,0,0.45)]">
+        <div className="mx-auto flex h-full max-w-md flex-col rounded-3xl border border-white/12 bg-[#101010] p-4 shadow-[0_20px_60px_rgba(0,0,0,0.45)]">
           <div className="mb-3 flex items-center justify-between">
             <p className="[font-family:var(--font-display)] text-xs uppercase tracking-[0.2em] text-[#9a9a9a]">Детализация сметы</p>
             <button

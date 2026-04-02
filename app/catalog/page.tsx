@@ -5,7 +5,7 @@ import { SiteFooter, SiteHeader } from "../components/site/SiteChrome";
 import { catalogMeta } from "../lib/catalog";
 import { getCatalogCounts } from "../lib/catalogCounts";
 
-const order: Array<keyof typeof catalogMeta> = ["single", "double", "combo", "complex"];
+const order: Array<keyof typeof catalogMeta> = ["single", "double", "complex", "combo"];
 
 export default async function CatalogPage() {
   const counts = await getCatalogCounts();

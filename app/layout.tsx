@@ -16,6 +16,28 @@ const montserrat = Montserrat({
 export const metadata: Metadata = {
   title: "Линия Гранита",
   description: "Линия Гранита — архитектура памяти",
+  metadataBase: new URL("https://linia-granita.vercel.app"),
+  openGraph: {
+    title: "Линия Гранита",
+    description: "Архитектура памяти: каталог памятников и благоустройство.",
+    type: "website",
+    url: "https://linia-granita.vercel.app",
+    siteName: "Линия Гранита",
+    images: [
+      {
+        url: "/opengraph-image",
+        width: 1200,
+        height: 630,
+        alt: "Линия Гранита",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Линия Гранита",
+    description: "Архитектура памяти: каталог памятников и благоустройство.",
+    images: ["/opengraph-image"],
+  },
 };
 
 export default function RootLayout({

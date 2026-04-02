@@ -15,7 +15,6 @@ import {
   Sparkles,
 } from "lucide-react";
 import { SiteFooter, SiteHeader } from "./components/site/SiteChrome";
-import PremiumCalculator from "./components/site/PremiumCalculator";
 
 type Direction = "monument" | "landscape" | "full" | "";
 type MonumentType = "single" | "double" | "combo" | "complex" | "";
@@ -253,7 +252,6 @@ export default function HomePage() {
   const [form, setForm] = useState<FormState>(defaultState);
   const [catalogCounts, setCatalogCounts] = useState(defaultMonumentCounts);
   const [copiedLink, setCopiedLink] = useState(false);
-  const [selectedProduct, setSelectedProduct] = useState("");
   const hydratedFromQueryRef = useRef(false);
 
   useEffect(() => {
@@ -282,8 +280,6 @@ export default function HomePage() {
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const encoded = params.get("cfg");
-    const selected = params.get("selected");
-    if (selected) setSelectedProduct(selected);
     if (!encoded) {
       hydratedFromQueryRef.current = true;
       return;
@@ -498,12 +494,14 @@ export default function HomePage() {
               href={`/catalog/${item.key}`}
               className={`group relative overflow-hidden rounded-[28px] border border-white/10 bg-white/[0.03] p-6 text-left backdrop-blur-2xl transition-all duration-300 hover:-translate-y-1 hover:border-white/20 hover:bg-white/[0.06] ${
                 item.key === "single"
-                  ? "md:pr-[196px]"
+                    ? "pr-[126px] min-[420px]:pr-[138px] md:pr-[196px]"
                   : item.key === "double"
-                    ? "md:pr-[214px]"
+                      ? "pr-[132px] min-[420px]:pr-[146px] md:pr-[214px]"
                     : item.key === "combo"
                       ? "md:pr-[188px]"
-                      : ""
+                      : item.key === "complex"
+                        ? "pr-[124px] min-[420px]:pr-[136px]"
+                        : ""
               }`}
             >
               <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-[#111] px-3 py-1">
@@ -535,7 +533,7 @@ export default function HomePage() {
               )}
 
               {item.key === "single" && (
-                <div className="pointer-events-none absolute right-1 top-4 bottom-4 hidden w-[186px] md:block">
+                <div className="pointer-events-none absolute right-2 top-5 bottom-4 block w-[112px] min-[420px]:w-[128px] md:right-1 md:top-4 md:w-[186px]">
                   <div className="absolute bottom-2 left-7 h-6 w-[126px] -rotate-[7deg] rounded-[999px] bg-black/52 blur-[11px]" />
                   <div className="absolute bottom-3 left-11 h-4 w-[95px] -rotate-[8deg] rounded-[999px] bg-white/12 blur-[9px]" />
                   <Image
@@ -549,7 +547,7 @@ export default function HomePage() {
               )}
 
               {item.key === "double" && (
-                <div className="pointer-events-none absolute right-0 top-4 bottom-4 hidden w-[204px] md:block">
+                <div className="pointer-events-none absolute right-1 top-5 bottom-4 block w-[120px] min-[420px]:w-[134px] md:right-0 md:top-4 md:w-[204px]">
                   <div className="absolute bottom-2 left-8 h-6 w-[142px] -rotate-[6deg] rounded-[999px] bg-black/55 blur-[11px]" />
                   <div className="absolute bottom-3 left-12 h-4 w-[110px] -rotate-[7deg] rounded-[999px] bg-white/10 blur-[9px]" />
                   <Image
@@ -563,7 +561,7 @@ export default function HomePage() {
               )}
 
               {item.key === "complex" && (
-                <div className="pointer-events-none absolute right-1 top-4 bottom-4 hidden w-[178px] md:block">
+                <div className="pointer-events-none absolute right-2 top-5 bottom-4 block w-[108px] min-[420px]:w-[124px] md:right-1 md:top-4 md:w-[178px]">
                   <Image
                     src="/monuments/combo-reference-cutout.png"
                     alt="Комплекс"
@@ -705,19 +703,6 @@ export default function HomePage() {
               </details>
             ))}
           </div>
-        </div>
-      </section>
-
-      <section id="calculator" className="border-y border-white/10 py-24">
-        <div className="mx-auto max-w-7xl px-6 md:px-10">
-          {selectedProduct ? (
-            <div className="mb-6 rounded-2xl border border-[#6f8dad]/45 bg-[#6f8dad]/[0.12] px-4 py-3">
-              <p className="text-xs uppercase tracking-[0.16em] text-[#dce7f1]">
-                Выбрана позиция: <span className="text-white">{selectedProduct}</span>
-              </p>
-            </div>
-          ) : null}
-          <PremiumCalculator />
         </div>
       </section>
 
