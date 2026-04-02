@@ -186,6 +186,31 @@ export default async function CatalogModelPage({ params }: PageProps) {
                 sizes="(max-width: 1024px) 100vw, 60vw"
               />
             </div>
+            {type === "complex" && complexVariants.length > 1 && (
+              <div className="mt-4 rounded-2xl border border-white/12 bg-[#101010]/80 p-3">
+                <p className="[font-family:var(--font-display)] text-[11px] uppercase tracking-[0.16em] text-[#8f8f8f]">
+                  Варианты гранита
+                </p>
+                <div className="mt-3 flex flex-wrap gap-2">
+                  {complexVariants.map((v) => {
+                    const isSelected = v.fileName === selectedModelFileName;
+                    return (
+                      <Link
+                        key={v.fileName}
+                        href={`/catalog/complex/model/${encodeURIComponent(v.fileName)}`}
+                        className={`rounded-full border px-3 py-2 text-[10px] uppercase tracking-[0.14em] transition ${
+                          isSelected
+                            ? "border-[#c7a76a] bg-[#c7a76a]/10 text-[#e8d4aa]"
+                            : "border-white/20 bg-[#101010] text-[#d3d3d3] hover:border-white/35 hover:bg-white/10 hover:text-white"
+                        }`}
+                      >
+                        {v.code}
+                      </Link>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
           </div>
 
           <aside className="rounded-[28px] border border-white/15 bg-[#101010] p-6">
@@ -209,32 +234,6 @@ export default async function CatalogModelPage({ params }: PageProps) {
                 </div>
               ))}
             </div>
-
-            {type === "complex" && complexVariants.length > 1 && (
-              <div className="mt-6">
-                <p className="[font-family:var(--font-display)] text-xs uppercase tracking-[0.2em] text-[#8f8f8f]">
-                  Варианты гранита
-                </p>
-                <div className="mt-4 flex flex-wrap gap-2">
-                  {complexVariants.map((v) => {
-                    const isSelected = v.fileName === selectedModelFileName;
-                    return (
-                      <Link
-                        key={v.fileName}
-                        href={`/catalog/complex/model/${encodeURIComponent(v.fileName)}`}
-                        className={`rounded-full border px-3 py-2 text-[10px] uppercase tracking-[0.14em] transition ${
-                          isSelected
-                            ? "border-[#c7a76a] bg-[#c7a76a]/10 text-[#e8d4aa]"
-                            : "border-white/20 bg-[#101010] text-[#d3d3d3] hover:border-white/35 hover:bg-white/10 hover:text-white"
-                        }`}
-                      >
-                        {v.code}
-                      </Link>
-                    );
-                  })}
-                </div>
-              </div>
-            )}
 
             <p className="mt-6 text-sm font-light leading-relaxed text-[#8e8e8e]">{specs.note}</p>
 

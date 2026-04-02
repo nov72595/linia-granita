@@ -355,7 +355,7 @@ ${linesPreview || "- Нет выбранных позиций"}`;
 
   return (
     <>
-    <div className="grid gap-6 lg:grid-cols-[1.2fr_0.8fr] xl:gap-8">
+    <div className="grid gap-6 pb-[140px] lg:grid-cols-[1.2fr_0.8fr] lg:pb-0 xl:gap-8">
       <div className="space-y-6 rounded-[28px] border border-white/12 bg-white/[0.04] p-6 shadow-[0_24px_60px_rgba(0,0,0,0.25)] backdrop-blur-2xl">
         <div className="flex items-center justify-between">
           <div>
@@ -591,7 +591,7 @@ ${linesPreview || "- Нет выбранных позиций"}`;
         </div>
       </div>
 
-      <aside className="order-first space-y-4 lg:order-none lg:space-y-6">
+      <aside className="hidden space-y-4 md:block lg:order-none lg:space-y-6">
         <div className="rounded-[28px] border border-white/12 bg-white/[0.04] p-6 shadow-[0_20px_50px_rgba(0,0,0,0.22)] backdrop-blur-2xl">
           <p className="[font-family:var(--font-display)] text-xs uppercase tracking-[0.2em] text-[#9a9a9a]">Итог по смете</p>
           <p className="[font-family:var(--font-display)] mt-3 text-4xl uppercase tracking-[0.08em] text-white">{byn(calc.total)}</p>

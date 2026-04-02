@@ -1,7 +1,3 @@
-"use client";
-
-import { useMemo, useState } from "react";
-import Image from "next/image";
 import Link from "next/link";
 import { ArrowLeft, Check } from "lucide-react";
 import importedCatalog from "../../lib/blagostandartImport.json";
@@ -64,18 +60,19 @@ const accessoryProducts = [
   })),
 ];
 
-export default function AccessoriesCatalogPage() {
-  const [selectedGroup, setSelectedGroup] = useState<GroupKey>("vazy");
-  const [activeImageBySlug, setActiveImageBySlug] = useState<Record<string, number>>({});
+type AccessoriesPageProps = {
+  searchParams: Promise<{ group?: string }>;
+};
 
-  const selectedGroupMeta = useMemo(
-    () => accessoryGroups.find((item) => item.key === selectedGroup) ?? accessoryGroups[0],
-    [selectedGroup]
-  );
-  const visibleAccessoryProducts = useMemo(
-    () => accessoryProducts.filter((item) => item.groupKey === selectedGroup),
-    [selectedGroup]
-  );
+function isGroupKey(value: string): value is GroupKey {
+  return value === "vazy" || value === "lampady" || value === "dekor";
+}
+
+export default async function AccessoriesCatalogPage({ searchParams }: AccessoriesPageProps) {
+  const params = await searchParams;
+  const selectedGroup: GroupKey = params.group && isGroupKey(params.group) ? params.group : "vazy";
+  const selectedGroupMeta = accessoryGroups.find((item) => item.key === selectedGroup) ?? accessoryGroups[0];
+  const visibleAccessoryProducts = accessoryProducts.filter((item) => item.groupKey === selectedGroup);
 
   return (
     <main className="min-h-screen bg-[#0a0a0a] text-white">
@@ -102,10 +99,9 @@ export default function AccessoriesCatalogPage() {
 
         <div className="mt-10 flex flex-wrap gap-2">
           {accessoryGroups.map((item) => (
-            <button
+            <Link
               key={item.key}
-              type="button"
-              onClick={() => setSelectedGroup(item.key)}
+              href={`/catalog/accessories?group=${item.key}`}
               className={`rounded-full border px-4 py-2 text-xs uppercase tracking-[0.14em] transition ${
                 item.key === selectedGroup
                   ? "border-[#6f8dad]/70 bg-[#6f8dad]/[0.2] text-[#eef4fb]"
@@ -113,7 +109,7 @@ export default function AccessoriesCatalogPage() {
               }`}
             >
               {item.title}
-            </button>
+            </Link>
           ))}
         </div>
 
@@ -138,8 +134,7 @@ export default function AccessoriesCatalogPage() {
 
           <div className="mt-6 grid grid-cols-1 gap-4 min-[420px]:grid-cols-2 md:grid-cols-2 xl:grid-cols-3">
             {visibleAccessoryProducts.map((item) => {
-              const activeIdx = Math.min(activeImageBySlug[item.slug] ?? 0, Math.max(item.images.length - 1, 0));
-              const activeImage = item.images[activeIdx] ?? item.images[0];
+              const activeImage = item.images[0] ?? "/monuments/combo-reference-cutout.png";
 
               return (
                 <CatalogItemCard
@@ -161,24 +156,7 @@ export default function AccessoriesCatalogPage() {
                       </p>
                     </div>
                   }
-                  thumbnails={
-                    item.images.length > 1 ? (
-                      <div className="flex flex-wrap gap-2">
-                        {item.images.slice(0, 6).map((img, idx) => (
-                          <button
-                            key={img}
-                            type="button"
-                            onClick={() => setActiveImageBySlug((prev) => ({ ...prev, [item.slug]: idx }))}
-                            className={`relative h-12 w-12 overflow-hidden rounded-md border transition ${
-                              idx === activeIdx ? "border-[#d4af37]/70" : "border-white/15 hover:border-white/35"
-                            }`}
-                          >
-                            <Image src={img} alt={`${item.title} ${idx + 1}`} fill className="object-cover" sizes="48px" />
-                          </button>
-                        ))}
-                      </div>
-                    ) : undefined
-                  }
+                  thumbnails={undefined}
                   actions={
                     <a
                       href="tel:+375296687665"

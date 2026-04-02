@@ -18,11 +18,11 @@ const socialLinks = [
 
 function FloatingContactDock() {
   return (
-    <div className="pointer-events-none fixed bottom-4 right-3 z-[45] sm:bottom-5 sm:right-5">
+    <div className="contact-dock pointer-events-none fixed right-3 z-[72] sm:right-5">
       <div className="pointer-events-auto flex flex-col items-end gap-2">
         <a
           href={`tel:${MAIN_PHONE_RAW}`}
-          className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-[#d4af37]/55 bg-[linear-gradient(180deg,rgba(212,175,55,0.28),rgba(212,175,55,0.14))] text-[#f4e6bf] shadow-[0_10px_20px_rgba(0,0,0,0.24)] transition hover:border-[#d4af37]/80 hover:brightness-105 sm:h-12 sm:w-12"
+          className="contact-dock__btn contact-dock__btn--pulse inline-flex h-11 w-11 items-center justify-center rounded-full border border-[#d4af37]/55 bg-[linear-gradient(180deg,rgba(212,175,55,0.28),rgba(212,175,55,0.14))] text-[#f4e6bf] shadow-[0_10px_20px_rgba(0,0,0,0.24)] transition hover:border-[#d4af37]/80 hover:brightness-105 sm:h-12 sm:w-12"
           aria-label="Позвонить по главному номеру"
           title="Позвонить"
         >
@@ -32,7 +32,7 @@ function FloatingContactDock() {
           href={MAIN_VIBER}
           target="_blank"
           rel="noreferrer"
-          className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/20 bg-white/[0.06] text-[#dce7f1] shadow-[0_10px_20px_rgba(0,0,0,0.2)] transition hover:border-[#6f8dad]/55 hover:bg-[#6f8dad]/[0.16] hover:text-white sm:h-12 sm:w-12"
+          className="contact-dock__btn contact-dock__btn--pulse inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/20 bg-white/[0.06] text-[#dce7f1] shadow-[0_10px_20px_rgba(0,0,0,0.2)] transition hover:border-[#6f8dad]/55 hover:bg-[#6f8dad]/[0.16] hover:text-white sm:h-12 sm:w-12"
           aria-label="Написать в Viber"
           title="Viber"
         >
@@ -42,7 +42,7 @@ function FloatingContactDock() {
           href={MAIN_TELEGRAM}
           target="_blank"
           rel="noreferrer"
-          className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/20 bg-white/[0.06] text-[#dce7f1] shadow-[0_10px_20px_rgba(0,0,0,0.2)] transition hover:border-[#6f8dad]/55 hover:bg-[#6f8dad]/[0.16] hover:text-white sm:h-12 sm:w-12"
+          className="contact-dock__btn contact-dock__btn--pulse inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/20 bg-white/[0.06] text-[#dce7f1] shadow-[0_10px_20px_rgba(0,0,0,0.2)] transition hover:border-[#6f8dad]/55 hover:bg-[#6f8dad]/[0.16] hover:text-white sm:h-12 sm:w-12"
           aria-label="Написать в Telegram"
           title="Telegram"
         >
@@ -200,9 +200,7 @@ export function SiteHeader() {
           </div>
         </div>
       </header>
-      <div className="hidden md:block">
-        <FloatingContactDock />
-      </div>
+      <FloatingContactDock />
     </>
   );
 }

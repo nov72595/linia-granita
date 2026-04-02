@@ -65,7 +65,7 @@ const monumentTypes = [
     key: "complex" as const,
     title: "Комплексы",
     count: 120,
-    descriptor: "Фото реализованных работ в портфолио",
+    descriptor: "",
     series: ["Серия 1-40", "Серия 41-80", "Серия 81-120+"],
     base: 5100,
     lead: 35,
@@ -533,7 +533,7 @@ export default function HomePage() {
               )}
 
               {item.key === "single" && (
-                <div className="pointer-events-none absolute right-2 top-5 bottom-4 block w-[112px] min-[420px]:w-[128px] md:right-1 md:top-4 md:w-[186px]">
+                <div className="pointer-events-none absolute right-2 top-4 bottom-4 block w-[132px] min-[420px]:w-[148px] md:right-1 md:top-4 md:w-[186px]">
                   <div className="absolute bottom-2 left-7 h-6 w-[126px] -rotate-[7deg] rounded-[999px] bg-black/52 blur-[11px]" />
                   <div className="absolute bottom-3 left-11 h-4 w-[95px] -rotate-[8deg] rounded-[999px] bg-white/12 blur-[9px]" />
                   <Image
@@ -561,7 +561,7 @@ export default function HomePage() {
               )}
 
               {item.key === "complex" && (
-                <div className="pointer-events-none absolute right-2 top-5 bottom-4 block w-[108px] min-[420px]:w-[124px] md:right-1 md:top-4 md:w-[178px]">
+                <div className="pointer-events-none absolute right-2 top-4 bottom-4 block w-[130px] min-[420px]:w-[146px] md:right-1 md:top-4 md:w-[178px]">
                   <Image
                     src="/monuments/combo-reference-cutout.png"
                     alt="Комплекс"
