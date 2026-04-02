@@ -73,7 +73,7 @@ const monumentTypes = [
   },
   {
     key: "combo" as const,
-    title: "Составные",
+    title: "Портфолио",
     count: 40,
     descriptor: "Портфолио выполненных объектов",
     series: ["Серия 1-15", "Серия 16-30", "Серия 31-40"],

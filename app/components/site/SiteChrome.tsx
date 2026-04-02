@@ -119,16 +119,16 @@ export function BrandMark({ variant = "footer" }: BrandMarkProps) {
         <div className="pointer-events-none absolute inset-x-0 top-0 h-1/2 bg-gradient-to-b from-white/20 to-transparent" />
       </div>
 
-      <div className={`whitespace-nowrap ${isHeader ? "hidden min-[431px]:block" : "block"}`}>
-        <p className="[font-family:var(--font-display)] text-[13px] uppercase tracking-[0.2em] text-white sm:text-[14px] sm:tracking-[0.22em] whitespace-nowrap">
+      <div className={`whitespace-nowrap ${isHeader ? "block" : "block"}`}>
+        <p className="[font-family:var(--font-display)] text-[11px] uppercase tracking-[0.16em] text-white sm:text-[14px] sm:tracking-[0.22em] whitespace-nowrap">
           Линия Гранита
         </p>
         <p
           className={`uppercase tracking-[0.16em] text-[#9a9a9a] whitespace-nowrap ${
-            isHeader ? "text-[10px] sm:text-[11px]" : "text-[10px]"
+            isHeader ? "text-[9px] sm:text-[11px]" : "text-[10px]"
           }`}
         >
-          Память в камне
+          Архитектура памяти
         </p>
       </div>
     </div>
@@ -159,7 +159,34 @@ export function SiteHeader() {
           <Link href="/" className="shrink-0">
             <BrandMark variant="header" />
           </Link>
+          <nav className="hidden items-center gap-8 xl:flex">
+            <Link
+              href="/catalog"
+              className="[font-family:var(--font-display)] text-xs uppercase tracking-[0.22em] text-[#b2b2b2] transition hover:text-white"
+            >
+              Каталог
+            </Link>
+            <Link
+              href="/landscape"
+              className="[font-family:var(--font-display)] text-xs uppercase tracking-[0.22em] text-[#b2b2b2] transition hover:text-white"
+            >
+              Благоустройство
+            </Link>
+            <Link
+              href="/contacts"
+              className="[font-family:var(--font-display)] text-xs uppercase tracking-[0.22em] text-[#b2b2b2] transition hover:text-white"
+            >
+              Контакты
+            </Link>
+          </nav>
           <div className="flex items-center">
+            <a
+              href={`tel:${MAIN_PHONE_RAW}`}
+              className="mr-2 hidden items-center gap-2 rounded-full border border-white/20 bg-white/[0.04] px-3.5 py-2 text-[11px] tracking-[0.06em] text-[#dce7f1] transition hover:border-[#6f8dad]/45 hover:bg-[#6f8dad]/[0.1] hover:text-white lg:inline-flex"
+            >
+              <Phone className="h-3.5 w-3.5" />
+              {MAIN_PHONE_LABEL}
+            </a>
             <button
               type="button"
               onClick={toggleTheme}
@@ -168,6 +195,7 @@ export function SiteHeader() {
               title={theme === "dark" ? "Включить светлую тему" : "Включить тёмную тему"}
             >
               {theme === "dark" ? <Sun className="h-3.5 w-3.5" /> : <Moon className="h-3.5 w-3.5" />}
+              <span className="hidden sm:inline">{theme === "dark" ? "Светлая" : "Тёмная"}</span>
             </button>
           </div>
         </div>

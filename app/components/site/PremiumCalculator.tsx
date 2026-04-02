@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo, useRef, useState } from "react";
-import { Calculator, ClipboardCheck, Download, MessageCircle, Ruler, Send } from "lucide-react";
+import { Calculator, ChevronDown, ClipboardCheck, Download, MessageCircle, Ruler, Send } from "lucide-react";
 import { toBlob } from "html-to-image";
 import PlotPreview3D from "./PlotPreview3D";
 
@@ -118,6 +118,7 @@ export default function PremiumCalculator() {
   const [qty, setQty] = useState<Record<string, number>>({});
   const [exportBusy, setExportBusy] = useState(false);
   const [exportError, setExportError] = useState<string | null>(null);
+  const [mobileDetailsOpen, setMobileDetailsOpen] = useState(false);
   const [paverPattern, setPaverPattern] = useState<"circle" | "square" | "california">("circle");
   const [porcelainVariant, setPorcelainVariant] = useState<"barrone" | "g640" | "g610">("barrone");
 
@@ -189,6 +190,17 @@ export default function PremiumCalculator() {
       : `Тротуарная плитка 30x30 (${paverLabel})`;
     return { l, w, lf, wf, tileSize, tileLabel };
   }, [L, W, LFree, WFree, checks.t350, paverPattern, porcelainVariant]);
+
+  const mobileProgress = useMemo(() => {
+    const hasBaseSize = toNumber(L) > 0 && toNumber(W) > 0;
+    const hasInstall = INSTALL_TOGGLES.some((item) => checks[item.id]);
+    const hasAnyQty = Object.values(qty).some((value) => Number(value) > 0);
+    const hasDemolition = toNumber(Ld) > 0 || toNumber(Wd) > 0 || DEMO_TOGGLES.some((item) => checks[item.id]);
+    const hasDelivery = toNumber(dist) > 0;
+    const done = [hasBaseSize, hasInstall || hasAnyQty, hasDemolition, hasDelivery].filter(Boolean).length;
+    const total = 4;
+    return { done, total, percent: Math.round((done / total) * 100) };
+  }, [L, W, Ld, Wd, dist, checks, qty]);
 
   const toggleCheck = (id: string) =>
     setChecks((prev) => {
@@ -342,6 +354,7 @@ ${linesPreview || "- Нет выбранных позиций"}`;
   };
 
   return (
+    <>
     <div className="grid gap-6 lg:grid-cols-[1.2fr_0.8fr] xl:gap-8">
       <div className="space-y-6 rounded-[28px] border border-white/12 bg-white/[0.04] p-6 shadow-[0_24px_60px_rgba(0,0,0,0.25)] backdrop-blur-2xl">
         <div className="flex items-center justify-between">
@@ -354,6 +367,27 @@ ${linesPreview || "- Нет выбранных позиций"}`;
           </div>
         </div>
 
+        <div className="rounded-2xl border border-white/12 bg-[#111111]/85 px-4 py-3">
+          <div className="mb-2 flex items-center justify-between">
+            <p className="text-[10px] uppercase tracking-[0.14em] text-[#9a9a9a]">Прогресс расчета</p>
+            <p className="text-[10px] uppercase tracking-[0.14em] text-[#dce7f1]">
+              Шаг {mobileProgress.done}/{mobileProgress.total}
+            </p>
+          </div>
+          <div className="h-1.5 overflow-hidden rounded-full bg-white/10">
+            <div
+              className="h-full rounded-full bg-[linear-gradient(90deg,rgba(111,141,173,0.95),rgba(155,180,205,0.95))] transition-all duration-300"
+              style={{ width: `${mobileProgress.percent}%` }}
+            />
+          </div>
+        </div>
+
+        <details className="group rounded-3xl border border-white/12 bg-[#111111] p-4 md:border-0 md:bg-transparent md:p-0">
+          <summary className="mb-3 flex cursor-pointer list-none items-center justify-between gap-3 md:hidden">
+            <p className="[font-family:var(--font-display)] text-xs uppercase tracking-[0.18em] text-[#bdbdbd]">Параметры сметы</p>
+            <ChevronDown className="h-4 w-4 text-[#9bb4cd] transition-transform group-open:rotate-180" />
+          </summary>
+          <div className="hidden space-y-4 group-open:block md:block">
         <div className="grid gap-3 sm:grid-cols-2">
           <label className="space-y-1">
             <span className="text-xs uppercase tracking-[0.16em] text-[#9a9a9a]">Длина участка, м</span>
@@ -558,9 +592,11 @@ ${linesPreview || "- Нет выбранных позиций"}`;
             </label>
           </div>
         </div>
+          </div>
+        </details>
       </div>
 
-      <aside className="space-y-6">
+      <aside className="order-first space-y-4 lg:order-none lg:space-y-6">
         <div className="rounded-[28px] border border-white/12 bg-white/[0.04] p-6 shadow-[0_20px_50px_rgba(0,0,0,0.22)] backdrop-blur-2xl">
           <p className="[font-family:var(--font-display)] text-xs uppercase tracking-[0.2em] text-[#9a9a9a]">Итог по смете</p>
           <p className="[font-family:var(--font-display)] mt-3 text-4xl uppercase tracking-[0.08em] text-white">{byn(calc.total)}</p>
@@ -576,12 +612,15 @@ ${linesPreview || "- Нет выбранных позиций"}`;
           </div>
         </div>
 
-        <div className="rounded-[28px] border border-white/12 bg-white/[0.04] p-6 shadow-[0_20px_50px_rgba(0,0,0,0.22)] backdrop-blur-2xl">
-          <div className="flex items-center gap-2">
-            <ClipboardCheck className="h-4 w-4 text-[#9bb4cd]" />
-            <p className="[font-family:var(--font-display)] text-xs uppercase tracking-[0.2em] text-[#9a9a9a]">Примеры расчетов</p>
-          </div>
-          <div className="mt-4 space-y-2">
+        <details className="group rounded-[28px] border border-white/12 bg-white/[0.04] p-6 shadow-[0_20px_50px_rgba(0,0,0,0.22)] backdrop-blur-2xl">
+          <summary className="flex cursor-pointer list-none items-center justify-between gap-2">
+            <div className="flex items-center gap-2">
+              <ClipboardCheck className="h-4 w-4 text-[#9bb4cd]" />
+              <p className="[font-family:var(--font-display)] text-xs uppercase tracking-[0.2em] text-[#9a9a9a]">Примеры расчетов</p>
+            </div>
+            <ChevronDown className="h-4 w-4 text-[#9bb4cd] transition-transform group-open:rotate-180 md:hidden" />
+          </summary>
+          <div className="mt-4 hidden space-y-2 group-open:block md:block">
             {PRESETS.map((preset) => (
               <button
                 key={preset.id}
@@ -593,14 +632,17 @@ ${linesPreview || "- Нет выбранных позиций"}`;
               </button>
             ))}
           </div>
-        </div>
+        </details>
 
-        <div className="rounded-[28px] border border-white/12 bg-white/[0.04] p-6 shadow-[0_20px_50px_rgba(0,0,0,0.22)] backdrop-blur-2xl">
-          <div className="flex items-center gap-2">
-            <Ruler className="h-4 w-4 text-[#9bb4cd]" />
-            <p className="[font-family:var(--font-display)] text-xs uppercase tracking-[0.2em] text-[#9a9a9a]">Что включено</p>
-          </div>
-          <div className="mt-4 max-h-[360px] space-y-2 overflow-auto pr-1">
+        <details className="group rounded-[28px] border border-white/12 bg-white/[0.04] p-6 shadow-[0_20px_50px_rgba(0,0,0,0.22)] backdrop-blur-2xl">
+          <summary className="flex cursor-pointer list-none items-center justify-between gap-2">
+            <div className="flex items-center gap-2">
+              <Ruler className="h-4 w-4 text-[#9bb4cd]" />
+              <p className="[font-family:var(--font-display)] text-xs uppercase tracking-[0.2em] text-[#9a9a9a]">Что включено</p>
+            </div>
+            <ChevronDown className="h-4 w-4 text-[#9bb4cd] transition-transform group-open:rotate-180 md:hidden" />
+          </summary>
+          <div className="mt-4 hidden max-h-[360px] space-y-2 overflow-auto pr-1 group-open:block md:block">
             {calc.lines.length === 0 ? (
               <p className="text-sm text-[#8f8f8f]">Выберите работы слева, чтобы увидеть детализацию.</p>
             ) : (
@@ -614,9 +656,9 @@ ${linesPreview || "- Нет выбранных позиций"}`;
               ))
             )}
           </div>
-        </div>
+        </details>
 
-        <div className="rounded-[24px] border border-white/12 bg-white/[0.04] p-4 backdrop-blur-2xl">
+        <div className="hidden rounded-[24px] border border-white/12 bg-white/[0.04] p-4 backdrop-blur-2xl md:block">
           <div className="grid gap-2 sm:grid-cols-2">
             <button
               type="button"
@@ -762,5 +804,86 @@ ${linesPreview || "- Нет выбранных позиций"}`;
         </div>
       </aside>
     </div>
+    <div className="fixed inset-x-3 z-[65] md:hidden" style={{ bottom: "calc(86px + env(safe-area-inset-bottom))" }}>
+      <div className="rounded-2xl border border-white/12 bg-[#0f1822]/95 p-3 shadow-[0_14px_36px_rgba(0,0,0,0.34)] backdrop-blur-xl">
+        <div className="flex items-center justify-between gap-3">
+          <div>
+            <p className="text-[10px] uppercase tracking-[0.14em] text-[#8f8f8f]">Итог по смете</p>
+            <p className="[font-family:var(--font-display)] mt-0.5 text-xl uppercase tracking-[0.08em] text-white">{byn(calc.total)}</p>
+            <p className="mt-1 text-[10px] uppercase tracking-[0.12em] text-[#9bb4cd]">
+              Шаг {mobileProgress.done}/{mobileProgress.total}
+            </p>
+          </div>
+          <div className="flex items-center gap-2">
+            <button
+              type="button"
+              onClick={() => setMobileDetailsOpen(true)}
+              className="rounded-xl border border-white/15 bg-[#111] px-3 py-2 text-[11px] uppercase tracking-[0.12em] text-[#d6d6d6]"
+            >
+              Детали
+            </button>
+            <button
+              type="button"
+              onClick={handleDownloadPng}
+              disabled={exportBusy}
+              className="inline-flex items-center gap-1.5 rounded-xl border border-[#6f8dad]/55 bg-[#6f8dad]/[0.18] px-3 py-2 text-[11px] uppercase tracking-[0.12em] text-[#dce7f1] disabled:opacity-60"
+            >
+              <Download className="h-3.5 w-3.5" />
+              PNG
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {mobileDetailsOpen ? (
+      <div className="fixed inset-0 z-[80] bg-black/60 p-4 md:hidden">
+        <div className="mx-auto flex h-full max-w-md flex-col rounded-3xl border border-white/12 bg-[#0f1822] p-4 shadow-[0_20px_60px_rgba(0,0,0,0.45)]">
+          <div className="mb-3 flex items-center justify-between">
+            <p className="[font-family:var(--font-display)] text-xs uppercase tracking-[0.2em] text-[#9a9a9a]">Детализация сметы</p>
+            <button
+              type="button"
+              onClick={() => setMobileDetailsOpen(false)}
+              className="rounded-xl border border-white/15 bg-[#111] px-3 py-1.5 text-[11px] uppercase tracking-[0.12em] text-[#d6d6d6]"
+            >
+              Закрыть
+            </button>
+          </div>
+          <div className="min-h-0 flex-1 space-y-2 overflow-auto pr-1">
+            {calc.lines.length === 0 ? (
+              <p className="text-sm text-[#8f8f8f]">Выберите работы, чтобы увидеть детализацию.</p>
+            ) : (
+              calc.lines.map((line, idx) => (
+                <div key={`${line.name}-${idx}`} className="rounded-2xl border border-white/10 bg-[#101010] px-3 py-2.5 text-sm">
+                  <p className="text-[#dce7f1]">{line.name}</p>
+                  <p className="mt-1 text-xs text-[#8f8f8f]">
+                    {line.qty.toFixed(line.unit === "шт" ? 0 : 2)} {line.unit} x {line.price} BYN = {byn(line.sum)}
+                  </p>
+                </div>
+              ))
+            )}
+          </div>
+          <div className="mt-3 grid grid-cols-2 gap-2">
+            <button
+              type="button"
+              onClick={() => handleShareTo("telegram")}
+              disabled={exportBusy}
+              className="rounded-xl border border-white/15 bg-[#111] px-3 py-2 text-xs text-[#d6d6d6] disabled:opacity-60"
+            >
+              Telegram
+            </button>
+            <button
+              type="button"
+              onClick={() => handleShareTo("whatsapp")}
+              disabled={exportBusy}
+              className="rounded-xl border border-white/15 bg-[#111] px-3 py-2 text-xs text-[#d6d6d6] disabled:opacity-60"
+            >
+              WhatsApp
+            </button>
+          </div>
+        </div>
+      </div>
+    ) : null}
+    </>
   );
 }

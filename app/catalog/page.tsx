@@ -25,14 +25,14 @@ export default async function CatalogPage() {
           Откройте категорию, просмотрите макеты и выберите модель для расчета.
         </p>
 
-        <div className="mt-10 grid grid-cols-2 gap-4 md:grid-cols-2">
+        <div className="mt-10 grid grid-cols-1 gap-4 min-[420px]:grid-cols-2 md:grid-cols-2">
           {order.map((key) => {
             const item = catalogMeta[key];
             return (
               <Link
                 key={key}
                 href={`/catalog/${key}`}
-                className={`group relative flex min-h-[248px] flex-col overflow-hidden rounded-[28px] border border-white/10 bg-white/[0.03] p-6 backdrop-blur-2xl transition-all duration-300 hover:-translate-y-1 hover:border-white/20 hover:bg-white/[0.06] ${
+                className={`group relative flex min-h-[232px] flex-col overflow-hidden rounded-[28px] border border-white/10 bg-white/[0.03] p-5 min-[420px]:min-h-[248px] min-[420px]:p-6 backdrop-blur-2xl transition-all duration-300 hover:-translate-y-1 hover:border-white/20 hover:bg-white/[0.06] ${
                   key === "single" ? "md:pr-[196px]" : key === "double" ? "md:pr-[214px]" : key === "combo" ? "md:pr-[188px]" : ""
                 }`}
               >
@@ -46,8 +46,8 @@ export default async function CatalogPage() {
                 <p className="mt-2 text-xs uppercase tracking-[0.18em] text-[#8f8f8f]">
                   {counts[key]} макетов
                 </p>
-                <p className="mt-4 text-sm font-light text-[#9a9a9a]">{item.description}</p>
-                <span className="mt-auto pt-6 inline-flex items-center gap-2 text-xs uppercase tracking-[0.18em] text-white/90">
+                <p className="mt-4 hidden text-sm font-light text-[#9a9a9a] min-[420px]:block">{item.description}</p>
+                <span className="mt-auto inline-flex items-center gap-2 pt-5 text-[11px] uppercase tracking-[0.14em] text-white/90 min-[420px]:pt-6 min-[420px]:text-xs min-[420px]:tracking-[0.18em]">
                   Открыть каталог
                   <ArrowRight className="h-4 w-4" />
                 </span>
@@ -100,7 +100,7 @@ export default async function CatalogPage() {
           <p className="[font-family:var(--font-display)] text-xs uppercase tracking-[0.22em] text-[#8f8f8f]">
             Дополнительные разделы
           </p>
-          <div className="mt-4 grid grid-cols-2 gap-4 md:grid-cols-3">
+          <div className="mt-4 grid grid-cols-1 gap-4 min-[420px]:grid-cols-2 md:grid-cols-3">
             <Link
               href="/catalog/fences"
               className="group rounded-[24px] border border-white/10 bg-white/[0.03] p-5 backdrop-blur-2xl transition-all duration-300 hover:-translate-y-1 hover:border-white/20 hover:bg-white/[0.06]"

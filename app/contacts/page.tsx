@@ -7,6 +7,7 @@ import { SiteFooter, SiteHeader } from "../components/site/SiteChrome";
 
 const CONTACT = {
   phones: [
+    { raw: "+375296687665", label: "+375 29 668 76 65" },
     { raw: "+375292686024", label: "+375 29 268 60 24" },
     { raw: "+375333326318", label: "+375 33 332 63 18" },
   ],

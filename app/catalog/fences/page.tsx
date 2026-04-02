@@ -156,7 +156,7 @@ export default function FencesCatalogPage() {
             {selectedFenceType.label} ({visibleFenceProducts.length})
           </h2>
 
-          <div className="mt-6 grid grid-cols-2 gap-4 md:grid-cols-2 xl:grid-cols-3">
+          <div className="mt-6 grid grid-cols-1 gap-4 min-[420px]:grid-cols-2 md:grid-cols-2 xl:grid-cols-3">
             {visibleFenceProducts.map((item) => {
               const activeImage = item.images[0];
 

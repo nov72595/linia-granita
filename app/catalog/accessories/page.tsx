@@ -136,7 +136,7 @@ export default function AccessoriesCatalogPage() {
             {selectedGroupMeta.title} ({visibleAccessoryProducts.length})
           </h2>
 
-          <div className="mt-6 grid grid-cols-2 gap-4 md:grid-cols-2 xl:grid-cols-3">
+          <div className="mt-6 grid grid-cols-1 gap-4 min-[420px]:grid-cols-2 md:grid-cols-2 xl:grid-cols-3">
             {visibleAccessoryProducts.map((item) => {
               const activeIdx = Math.min(activeImageBySlug[item.slug] ?? 0, Math.max(item.images.length - 1, 0));
               const activeImage = item.images[activeIdx] ?? item.images[0];

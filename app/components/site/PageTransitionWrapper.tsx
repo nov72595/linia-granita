@@ -15,7 +15,7 @@ export default function PageTransitionWrapper({ children }: { children: ReactNod
   }, []);
 
   return (
-    <div className="min-h-screen pb-[calc(74px+env(safe-area-inset-bottom))] md:pb-0">
+    <div className="min-h-screen pb-[calc(84px+env(safe-area-inset-bottom))] md:pb-0">
       <AnimatePresence mode="wait" initial={!isFirst}>
         <motion.div
           key={pathname}

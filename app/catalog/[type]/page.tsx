@@ -210,7 +210,7 @@ export default async function CatalogTypePage({ params }: PageProps) {
             </p>
           </div>
         ) : (
-          <div className="grid grid-cols-2 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="grid grid-cols-1 gap-4 min-[420px]:grid-cols-2 lg:grid-cols-3">
             {items.map((item, index) => {
               const modelHref = `/catalog/${type}/model/${encodeURIComponent(item.id)}`;
               const startPrice = getStartPrice(type, item.id);

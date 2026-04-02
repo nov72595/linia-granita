@@ -17,7 +17,7 @@ export const catalogMeta: Record<
     folder: "double",
   },
   combo: {
-    title: "Составные",
+    title: "Портфолио",
     defaultCount: 40,
     description: "Сложные формы, камень и выразительные детали.",
     folder: "combo",
