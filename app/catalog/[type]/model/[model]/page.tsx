@@ -174,7 +174,7 @@ export default async function CatalogModelPage({ params }: PageProps) {
 
         <div className="mt-8 grid gap-6 lg:grid-cols-[1.1fr_0.9fr]">
           <div className="rounded-[28px] border border-white/15 bg-white/[0.03] p-3 backdrop-blur-2xl">
-            <div className="relative h-[560px] w-full overflow-hidden rounded-2xl bg-[#f1f1f1]">
+            <div className="relative h-[360px] w-full overflow-hidden rounded-2xl bg-[#f1f1f1] min-[420px]:h-[440px] md:h-[560px]">
               <div className="absolute left-4 top-4 z-10 rounded-full border border-white/15 bg-white/95 px-3 py-1 text-[10px] uppercase tracking-[0.16em] text-[#1f1f1f]">
                 Макет {makeMockupCodeByType(model, type)}
               </div>
@@ -200,12 +200,12 @@ export default async function CatalogModelPage({ params }: PageProps) {
               {specsRows.map((row, idx) => (
                 <div
                   key={row.label}
-                  className={`grid grid-cols-[140px_1fr] items-start gap-4 px-4 py-3 text-sm ${
+                  className={`grid grid-cols-1 items-start gap-1 px-4 py-3 text-sm min-[420px]:grid-cols-[140px_1fr] min-[420px]:gap-4 ${
                     idx !== specsRows.length - 1 ? "border-b border-white/10" : ""
                   }`}
                 >
                   <span className="text-[#9f9f9f] leading-5">{row.label}</span>
-                  <span className="text-right text-white leading-5">{row.value}</span>
+                  <span className="text-left text-white leading-5 min-[420px]:text-right">{row.value}</span>
                 </div>
               ))}
             </div>
